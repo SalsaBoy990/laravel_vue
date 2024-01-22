@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Authenticated API routes
+Route::group(['prefix' => 'v1',  'middleware' => ['auth:sanctum'] ],
+    function () {
+
+        Route::post('logout', [LoginController::class, 'logout'])->name('user.logout');
+
+        Route::get('user', function (Request $request) {
+            return $request->user();
+        })->name('user.me');
+
+        Route::get('article', [ArticleController::class, 'index']);
+        Route::get('article/{article}', [ArticleController::class, 'show']);
+        Route::post('article', [ArticleController::class, 'store']);
+        Route::put('article/{article}', [ArticleController::class, 'update']);
+        Route::delete('article/{article}', [ArticleController::class, 'delete']);
+    }
+);
