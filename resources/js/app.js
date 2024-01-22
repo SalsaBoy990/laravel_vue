@@ -4,8 +4,14 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 import './bootstrap';
-import { createApp } from 'vue';
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
+import {createApp} from 'vue';
+import Router from '@/router'
+import store from '@/store'
+import library from "@/icons/icons"
+
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -14,9 +20,9 @@ import { createApp } from 'vue';
  */
 
 const app = createApp({});
-
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+app.component('font-awesome-icon', FontAwesomeIcon)
+app.use(Router)
+app.use(store)
 
 /**
  * The following block of code may be used to automatically register your
